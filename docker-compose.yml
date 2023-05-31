@@ -19,7 +19,7 @@ services:
     environment:
       - NEO4J_AUTH=${CSDT_USER}/${CSDT_PASSWORD}
     env_file:
-      - env_file
+      - .env
     networks:
       - api_network
   site:
