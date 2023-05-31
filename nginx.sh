@@ -46,6 +46,23 @@ do
         include  "/opt/bitnami/nginx/conf/bitnami/*.conf";
     }
 EOF"
+
+    sudo bash -c "cat > /opt/bitnami/nginx/conf/server_blocks/$container-server-block.conf <<EOF
+    server {
+        listen 443 ssl default_server;
+        server_name $server_name;
+        root /opt/bitnami/$container;
+        location / {
+            proxy_pass https://localhost:${services[$container]};
+            proxy_set_header Host \$host;
+            proxy_set_header X-Real-IP \$remote_addr;
+            proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto \$scheme;
+        }
+
+        include  "/opt/bitnami/nginx/conf/bitnami/*.conf";
+    }
+EOF"
 done
 
 # Restart Nginx

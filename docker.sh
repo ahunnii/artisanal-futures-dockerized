@@ -3,6 +3,10 @@
 # Update the system
 sudo apt-get update -y
 
+
+sudo apt-get install git-lfs
+
+
 # Install Docker
 sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release -y
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
