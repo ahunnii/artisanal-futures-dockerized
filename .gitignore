@@ -1,0 +1,4 @@
+.env
+neo4j/
+wp-content/
+env_file
