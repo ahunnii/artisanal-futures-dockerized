@@ -34,7 +34,7 @@ do
     server {
         listen 80 default_server;
         server_name $server_name;
-        root /opt/bitnami/$container;
+        # root /opt/bitnami/$container;
         location / {
             proxy_pass http://localhost:${services[$container]};
             proxy_set_header Host \$host;
@@ -43,7 +43,7 @@ do
             proxy_set_header X-Forwarded-Proto \$scheme;
         }
 
-        include  "/opt/bitnami/nginx/conf/bitnami/*.conf";
+        # include  "/opt/bitnami/nginx/conf/bitnami/*.conf";
     }
 EOF"
 
@@ -51,7 +51,7 @@ EOF"
     server {
         listen 443 ssl default_server;
         server_name $server_name;
-        root /opt/bitnami/$container;
+        # root /opt/bitnami/$container;
         location / {
             proxy_pass https://localhost:${services[$container]};
             proxy_set_header Host \$host;
@@ -60,7 +60,7 @@ EOF"
             proxy_set_header X-Forwarded-Proto \$scheme;
         }
 
-        include  "/opt/bitnami/nginx/conf/bitnami/*.conf";
+        # include  "/opt/bitnami/nginx/conf/bitnami/*.conf";
     }
 EOF"
 done
