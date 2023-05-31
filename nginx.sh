@@ -30,11 +30,11 @@ do
     fi
 
     # Update this to redirect to correct nginx path based on server.
-    sudo bash -c "cat > /home/bitnami/stack/nginx/conf/$container.conf <<EOF
+    sudo bash -c "cat > /opt/bitnami/nginx/conf/server_blocks/$container-server-block.conf <<EOF
     server {
-        listen 80;
+        listen 80 default_server;
         server_name $server_name;
-
+        root /opt/bitnami/$container;
         location / {
             proxy_pass http://localhost:${services[$container]};
             proxy_set_header Host \$host;
@@ -42,6 +42,8 @@ do
             proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto \$scheme;
         }
+
+        include  "/opt/bitnami/nginx/conf/bitnami/*.conf";
     }
 EOF"
 done
