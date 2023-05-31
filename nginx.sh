@@ -47,7 +47,7 @@ do
     }
 EOF"
 
-    sudo bash -c "cat > /opt/bitnami/nginx/conf/server_blocks/$container-server-block.conf <<EOF
+    sudo bash -c "cat > /opt/bitnami/nginx/conf/server_blocks/$container-https-server-block.conf <<EOF
     server {
         listen 443 ssl default_server;
         server_name $server_name;
