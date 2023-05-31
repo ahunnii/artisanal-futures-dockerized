@@ -23,10 +23,14 @@ services:
     networks:
       - api_network
   site:
-    build: https://${GITHUB_ACCESS}@github.com/CSDTs/artisanal-futures.git#main
+    build:
+      context: https://${GITHUB_ACCESS}@github.com/CSDTs/artisanal-futures.git#main
+      args:
+        - ROOT_PATH=${ROOT_PATH}
     container_name: site-frontend
     ports:
       - 6900:6900
+
   routing-app:
     build: https://${GITHUB_ACCESS}@github.com/CSDTs/af-routes.git#main
     container_name: routing-app
