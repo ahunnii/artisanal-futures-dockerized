@@ -4,25 +4,6 @@ set -o allexport
 source .env
 set +o allexport
 
-sudo bash -c "cat > /etc/nginx/sites-available/$container <<EOF
-server {
-    listen 80;
-    server_name $container.$DOMAIN;
-
-    location / {
-        proxy_pass http://localhost:${services[$container]};
-        proxy_set_header Host \$host;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto \$scheme;
-    }
-}
-EOF"
-
-# Enable the site
-sudo ln -s /etc/nginx/sites-available/$container /etc/nginx/sites-enabled/
-
-
 # Define list of services
 declare -A services
 services=(
@@ -48,10 +29,10 @@ do
         server_name="$container.$DOMAIN"
     fi
 
-    sudo bash -c "cat > /etc/nginx/sites-available/$container <<EOF
+    sudo bash -c "cat > ~/stack/nginx/conf/$container.conf <<EOF
     server {
         listen 80;
-        server_name $container.$DOMAIN;
+        server_name $server_name;
 
         location / {
             proxy_pass http://localhost:${services[$container]};
@@ -62,9 +43,6 @@ do
         }
     }
 EOF"
-
-    # Enable the site
-    sudo ln -s /etc/nginx/sites-available/$container /etc/nginx/sites-enabled/
 done
 
 # Restart Nginx
