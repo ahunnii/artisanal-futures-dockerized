@@ -29,7 +29,8 @@ do
         server_name="$container.$DOMAIN"
     fi
 
-    sudo bash -c "cat > ~/stack/nginx/conf/$container.conf <<EOF
+    # Update this to redirect to correct nginx path based on server.
+    sudo bash -c "cat > /home/bitnami/stack/nginx/conf/$container.conf <<EOF
     server {
         listen 80;
         server_name $server_name;
