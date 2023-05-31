@@ -32,7 +32,7 @@ do
     # Update this to redirect to correct nginx path based on server.
     sudo bash -c "cat > /opt/bitnami/nginx/conf/server_blocks/$container-server-block.conf <<EOF
     server {
-        listen 80 default_server;
+        listen 80;
         server_name $server_name;
         # root /opt/bitnami/$container;
         location / {
@@ -45,7 +45,7 @@ EOF"
 
     sudo bash -c "cat > /opt/bitnami/nginx/conf/server_blocks/$container-https-server-block.conf <<EOF
     server {
-        listen 443 ssl default_server;
+        listen 443 ssl;
         server_name $server_name;
         # root /opt/bitnami/$container;
         location / {
