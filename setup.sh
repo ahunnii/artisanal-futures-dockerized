@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -o allexport
+source .env
+set +o allexport
+
 # Update the system
 sudo apt-get update -y
 
@@ -40,7 +44,7 @@ do
     sudo bash -c "cat > /etc/nginx/sites-available/$container <<EOF
     server {
         listen 80;
-        server_name $container.yourdomain.com;
+        server_name $container.$DOMAIN;
 
         location / {
             proxy_pass http://localhost:${services[$container]};
@@ -65,5 +69,5 @@ sudo apt-get install certbot python3-certbot-nginx -y
 # Set up SSL for each service
 for container in "${!services[@]}"
 do
-    sudo certbot --nginx -d $container.yourdomain.com
+    sudo certbot --nginx -d $container.$DOMAIN
 done
