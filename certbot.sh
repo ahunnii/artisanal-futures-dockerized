@@ -37,3 +37,6 @@ done
 
 # Automatically renew the SSL certificates
 echo "0 12 * * * root certbot renew --quiet" | sudo tee -a /etc/crontab > /dev/null
+
+
+sudo /opt/bitnami/ctlscript.sh restart nginx

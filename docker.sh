@@ -19,5 +19,5 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker 
 
-sudo service nginx restart
+sudo /opt/bitnami/ctlscript.sh restart nginx
 

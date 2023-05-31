@@ -49,4 +49,4 @@ EOF"
 done
 
 # Restart Nginx
-sudo systemctl restart nginx
+sudo /opt/bitnami/ctlscript.sh restart nginx
