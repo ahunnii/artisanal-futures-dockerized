@@ -32,7 +32,10 @@ services:
       - 6900:6900
 
   routing-app:
-    build: https://${GITHUB_ACCESS}@github.com/CSDTs/af-routes.git#main
+    build:
+      context: https://${GITHUB_ACCESS}@github.com/CSDTs/af-routes.git#main
+      args:
+        - ROOT_PATH=${ROOT_PATH}
     container_name: routing-app
     ports:
       - 6901:6901
