@@ -4,16 +4,6 @@ networks:
     driver: bridge
 services:
   # Start AF Neo4j Database
-  nginx:
-    image: nginx:latest
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-    ports:
-      - "80:80"
-    depends_on:
-      - wordpress
-      - site
-      - web
   csdt_neo4j:
     image: neo4j:3.5.3
     hostname: csdt_neo4j
