@@ -110,11 +110,7 @@ services:
   wordpress:
     depends_on:
       - db
-    build:
-      dockerfile: Dockerfile.wp
-      context: .
-      args:
-        - DOMAIN=${DOMAIN}
+    image: wordpress:latest
     container_name: site-backend
     ports:
       - 6980:80
@@ -124,6 +120,8 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_CONFIG_EXTRA: define('WP_HOME','http://${DOMAIN}/forum/');
+        define('WP_SITEURL','http://${DOMAIN}/forum/');
     volumes:
       - ./wp-content:/var/www/html/wp-content
 volumes:
