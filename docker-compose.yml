@@ -4,84 +4,84 @@ networks:
     driver: bridge
 services:
   # Start AF Neo4j Database
-  csdt_neo4j:
-    image: neo4j:3.5.3
-    hostname: csdt_neo4j
-    container_name: neo4j
-    ports:
-      - 7474:7474
-      - 7687:7687
-    volumes:
-      - ./neo4j/data:/data
-      - ./neo4j/logs:/logs
-      - ./neo4j/import:/var/lib/neo4j/import
-      - ./neo4j/plugins:/plugins
-    environment:
-      - NEO4J_AUTH=${CSDT_USER}/${CSDT_PASSWORD}
-    env_file:
-      - .env
-    networks:
-      - api_network
-  site:
-    build:
-      context: https://${GITHUB_ACCESS}@github.com/CSDTs/artisanal-futures.git#main
-      args:
-        - ROOT_PATH=/
-    container_name: site-frontend
-    ports:
-      - 6900:6900
+  # csdt_neo4j:
+  #   image: neo4j:3.5.3
+  #   hostname: csdt_neo4j
+  #   container_name: neo4j
+  #   ports:
+  #     - 7474:7474
+  #     - 7687:7687
+  #   volumes:
+  #     - ./neo4j/data:/data
+  #     - ./neo4j/logs:/logs
+  #     - ./neo4j/import:/var/lib/neo4j/import
+  #     - ./neo4j/plugins:/plugins
+  #   environment:
+  #     - NEO4J_AUTH=${CSDT_USER}/${CSDT_PASSWORD}
+  #   env_file:
+  #     - .env
+  #   networks:
+  #     - api_network
+  # site:
+  #   build:
+  #     context: https://${GITHUB_ACCESS}@github.com/CSDTs/artisanal-futures.git#main
+  #     args:
+  #       - ROOT_PATH=/
+  #   container_name: site-frontend
+  #   ports:
+  #     - 6900:6900
 
-  routing-app:
-    build:
-      context: https://${GITHUB_ACCESS}@github.com/CSDTs/af-routes.git#main
-      args:
-        - ROOT_PATH=${ROOT_PATH}
-    container_name: routing-app
-    ports:
-      - 6901:6901
-  # Start EPA EEIO eco-social API
-  eeio-api:
-    image: eeio-api:latest
-    container_name: eeio-api
-    ports:
-      - 7070:7070
-    networks:
-      - api_network
-  # Start AF eco-social assessment API
-  eco-social:
-    image: eco-social-api:latest
-    hostname: eco-social-api
-    container_name: eco-social-api
-    ports:
-      - 8080:8080
-    networks:
-      - api_network
-    env_file:
-      - .env
-    depends_on:
-      - eeio-api
-    restart: on-failure
-  # Start product search API
-  web:
-    # image: product-search-api:latest
-    build:
-      context: https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@gitlab.si.umich.edu/csdts-umich/csdt-misc/product-search.git#dev
-      dockerfile: Dockerfile.web
-    container_name: product-search-api
-    env_file:
-      - .env
-    depends_on:
-      - csdt_neo4j
-      - eco-social
-    networks:
-      - api_network
-    ports:
-      - 8181:8181
-  address-api:
-    build: https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@gitlab.si.umich.edu/csdts-umich/af_address_scraping.git#main
-    container_name: address-scrape-api
-    ports:
-      - 6975:6975
+  # routing-app:
+  #   build:
+  #     context: https://${GITHUB_ACCESS}@github.com/CSDTs/af-routes.git#main
+  #     args:
+  #       - ROOT_PATH=${ROOT_PATH}
+  #   container_name: routing-app
+  #   ports:
+  #     - 6901:6901
+  # # Start EPA EEIO eco-social API
+  # eeio-api:
+  #   image: eeio-api:latest
+  #   container_name: eeio-api
+  #   ports:
+  #     - 7070:7070
+  #   networks:
+  #     - api_network
+  # # Start AF eco-social assessment API
+  # eco-social:
+  #   image: eco-social-api:latest
+  #   hostname: eco-social-api
+  #   container_name: eco-social-api
+  #   ports:
+  #     - 8080:8080
+  #   networks:
+  #     - api_network
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - eeio-api
+  #   restart: on-failure
+  # # Start product search API
+  # web:
+  #   # image: product-search-api:latest
+  #   build:
+  #     context: https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@gitlab.si.umich.edu/csdts-umich/csdt-misc/product-search.git#dev
+  #     dockerfile: Dockerfile.web
+  #   container_name: product-search-api
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - csdt_neo4j
+  #     - eco-social
+  #   networks:
+  #     - api_network
+  #   ports:
+  #     - 8181:8181
+  # address-api:
+  #   build: https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@gitlab.si.umich.edu/csdts-umich/af_address_scraping.git#main
+  #   container_name: address-scrape-api
+  #   ports:
+  #     - 6975:6975
   db:
     image: mariadb:10.6.4-focal
     container_name: af-database
@@ -115,14 +115,15 @@ services:
     ports:
       - 6980:80
     restart: always
+    working_dir: /var/www/html/forum
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
-      WORDPRESS_CONFIG_EXTRA: define('WP_HOME','http://${DOMAIN}/forum/');
-        define('WP_SITEURL','http://${DOMAIN}/forum/');
+      WORDPRESS_CONFIG_EXTRA: define('WP_HOME','http://forum.${DOMAIN}');
+        define('WP_SITEURL','http://forum.${DOMAIN}');
     volumes:
-      - ./wp-content:/var/www/html/wp-content
+      - ./wordpress_content:/var/www/html
 volumes:
   db_data: {}
