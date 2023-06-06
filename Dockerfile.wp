@@ -1,7 +1,0 @@
-FROM wordpress:latest
-
-ARG DOMAIN=localhost
-
-# Set the root path
-RUN echo "define('WP_SITEURL', 'http://${DOMAIN}/forum');" >> /var/www/html/wp-config.php
-RUN echo "define('WP_HOME', 'http://${DOMAIN}/forum');" >> /var/www/html/wp-config.php
