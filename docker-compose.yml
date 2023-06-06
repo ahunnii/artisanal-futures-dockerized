@@ -115,14 +115,13 @@ services:
     ports:
       - 6980:80
     restart: always
-    working_dir: /var/www/html/forum
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
-      WORDPRESS_CONFIG_EXTRA: define('WP_HOME','http://forum.${DOMAIN}');
-        define('WP_SITEURL','http://forum.${DOMAIN}');
+      WORDPRESS_CONFIG_EXTRA: define('WP_HOME','https://forum.${DOMAIN}');
+        define('WP_SITEURL','https://forum.${DOMAIN}');
     volumes:
       - ./wordpress_content:/var/www/html
 volumes:
