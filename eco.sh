@@ -4,7 +4,7 @@ set -o allexport
 source .env
 set +o allexport
 
-git clone -b main https://$GITLAB_USERNAME:$ACCESS_TOKEN_ECO@gitlab.si.umich.edu/csdts-umich/artisanalfutures-eco-social-calc.git
+git clone -b main https://$GITLAB_USERNAME:$GITLAB_TOKEN@gitlab.si.umich.edu/csdts-umich/artisanalfutures-eco-social-calc.git
 cd artisanalfutures-eco-social-calc/data/USEEIO && git lfs install && git lfs pull
 cd ../../
 

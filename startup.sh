@@ -15,3 +15,8 @@ sudo /opt/bitnami/bncert-tool
 
 # Then build up docker
 
+cp ~/artisanal-futures-dockerized/locations/*.conf ~/stack/nginx/conf/server_blocks
+
+
+
+dreamwalkercosplay.co forum.dreamwalkercosplay.co address-api.dreamwalkercosplay.co prod-api.dreamwalkercosplay.co eco-api.dreamwalkercosplay.co eeio-api.dreamwalkercosplay.co

@@ -1,0 +1,12 @@
+USEEIO_API_HOST=http://eeio-api:7070/api
+GITHUB_ACCESS=*Get token from github*
+
+GITLAB_USERNAME=*Your username*
+GITLAB_TOKEN="Your gitlab token"
+
+CSDT_USER=neo4j
+CSDT_PASSWORD=csdt
+CSDT_CONTAINER=csdt_neo4j
+CSDT_GRAPH_URI=bolt://csdt_neo4j:7687
+DOMAIN=artisanalfutures.org
+ROOT_PATH=/apps/routing
