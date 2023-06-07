@@ -19,4 +19,4 @@ cp ~/artisanal-futures-dockerized/locations/*.conf ~/stack/nginx/conf/server_blo
 
 
 
-dreamwalkercosplay.co forum.dreamwalkercosplay.co address-api.dreamwalkercosplay.co prod-api.dreamwalkercosplay.co eco-api.dreamwalkercosplay.co eeio-api.dreamwalkercosplay.co
+dreamwalkercosplay.co forum.dreamwalkercosplay.co loc-api.dreamwalkercosplay.co prod-api.dreamwalkercosplay.co eco-api.dreamwalkercosplay.co eeio-api.dreamwalkercosplay.co
